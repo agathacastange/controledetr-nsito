@@ -21,6 +21,10 @@
     
     <div id="imageContainer">
     </div>
+    <audio id="notificationSound">
+        <source src="audio.mp3.mp3" type="audio/mpeg">
+      </audio>
+      
     <style>
       .container {
     width: 200px; 
@@ -71,6 +75,21 @@ h3{
 h4{
     background-color: dimgray;  
 }
+/* Adiciona animação de fade */
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Adiciona animação de status */
+.status-animation {
+  animation: fade 1s ease-in-out;
+}
+
 
 
 
@@ -86,14 +105,15 @@ h4{
                         const condition = data[0].res;
                         switch(condition) {
                             case 'A':
-                                imagem.src = "images/Pascal.png";
+                                imagem.src = "images/ursinho.jpg";
                                 
                                 break;
                             case 'B':
                                 imagem.src = "images/raiva.png";
+                              
                                 break;
                             case 'L':
-                                imagem.src = "images/ursinho.jpg";
+                                imagem.src = "images/Pascal.png";
                                 break;
                             default:
                                 console.error('Condição desconhecida:', condition);
@@ -106,6 +126,17 @@ h4{
                 .catch(error => {
                     console.error('Erro ao conectar à API:', error);
                 });
+                function playNotificationSound() {
+    const audio = document.getElementById('notificationSound');
+    audio.play();
+}
+
+// Dentro da parte onde há uma mudança de status:
+if (currentStatus !== newStatus) {
+    playNotificationSound(); // Chama a função para reproduzir o som
+    // Resto do código...
+}
+
         }
         window.onload = carregarImagem;
     </script>
