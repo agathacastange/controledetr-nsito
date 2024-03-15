@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semáforo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav><h1><p>CONTROLE DE TRÂNSITO</p></h1>
+     </nav>  
+ 
+      <br>
+      <h3>  Bem-vinda!</h3>
+       <h4> Seu diário: 15/03/2024</h4>
+</br>  
+        
+<div class="container">
+       
+        </div>
+    
+    <div id="imageContainer">
+    </div>
+    <style>
+      .container {
+    width: 200px; 
+    height: auto; 
+
+    top: 20px; 
+    left: 20px; 
+ 
+}
+
+.container img {
+    width: 100%; 
+    height: auto;
+}
+nav{
+    text-align: center;
+    background-color: dimgray;
+    height: 35px;
+}
+
+img {
+  max-width: 100%; 
+  height: auto; 
+}
+
+
+img {
+  max-width: 100%; 
+  height: auto;
+}
+
+
+@media only screen and (max-width: 600px) {
+  img {
+    max-width: 100%; 
+  }
+}
+
+/* Para telas maiores que 600 pixels de largura */
+@media only screen and (min-width: 601px) {
+  img {
+    max-width: 50%; 
+  }
+}
+h3{
+    background-color: dimgray;  
+}
+h4{
+    background-color: dimgray;  
+}
+
+
+
+    </style>
+ 
+    <script>
+        function carregarImagem() {
+            fetch('https://niloweb.com.br/transit-room/api/reg_endpoint.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0 && data[0].res && data[0].dia) {
+                        const imagem = document.createElement('img');
+                        const condition = data[0].res;
+                        switch(condition) {
+                            case 'A':
+                                imagem.src = "images/amarelo.png.jpg";
+                                
+                                break;
+                            case 'B':
+                                imagem.src = "images/vermelho.png.jpg";
+                                break;
+                            case 'L':
+                                imagem.src = "images/verde.png.jpg";
+                                break;
+                            default:
+                                console.error('Condição desconhecida:', condition);
+                        }
+                        document.getElementById('imageContainer').appendChild(imagem);
+                    } else {
+                        console.error('Erro ao carregar imagem da API.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao conectar à API:', error);
+                });
+        }
+        window.onload = carregarImagem;
+    </script>
+ 
+</body>
+</html>
